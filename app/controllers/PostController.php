@@ -65,7 +65,14 @@ class PostController
             $content = $_POST['content'];
             $tag = $_POST['tag'];
 
-            $postModel->updatePost($_POST['id'], $content, $tag);
+            $image = '';
+            if (!empty($_FILES['image']['name'])) {
+              $image = time() . '_' . $_FILES['image']['name'];
+              move_uploaded_file($_FILES['image']['tmp_name'], '../public/uploads/' . $image);
+            }
+
+            echo $image;
+            $postModel->updatePost($_POST['id'], $content, $image, $tag);
 
             $returnTo = isset($_POST['returnTo']) ? $_POST['returnTo'] : 'homePage';
 

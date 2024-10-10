@@ -66,14 +66,17 @@ class Post
     }
 
 
-    public function updatePost($id, $content, $tag)
+    public function updatePost($id, $content, $image, $tag)
     {
-        $stmt = $this->conn->prepare("UPDATE post SET content = ?, tag = ? WHERE id = ?");
+        $res = $this->conn->query("SELECT * FROM post WHERE id = '{$id}'")->fetch_assoc();
+        unlink('../public/uploads/' . $res['image']);
+            
+        $stmt = $this->conn->prepare("UPDATE post SET content = ?, tag = ?, image = ? WHERE id = ?");
         if (!$stmt) {
             echo "Prepare failed: (" . $this->conn->errno . ") " . $this->conn->error;
             return false;
         }
-        $stmt->bind_param("ssi", $content, $tag, $id);
+        $stmt->bind_param("sssi", $content, $tag, $image, $id);
         if (!$stmt->execute()) {
             echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
             return false;
@@ -105,6 +108,9 @@ class Post
             $stmt->execute();
             $stmt->close();
     
+            $res = $this->conn->query("SELECT * FROM post WHERE id = '{$postId}'")->fetch_assoc();
+            unlink('../public/uploads/' . $res['image']);
+            
             // Xóa bài viết
             $stmt = $this->conn->prepare("DELETE FROM post WHERE id = ?");
             $stmt->bind_param("i", $postId);
