@@ -33,7 +33,7 @@ class UserController
 
             $user = $userModel->getUserByEmail($email);
             if (!$user) {
-                $_SESSION['error'] = "Email không tồn tại trong hệ thống";
+                $_SESSION['error'] = "システムに存在しないメールアドレスです";
                 $_SESSION['form_data'] = $_POST;
                 header("Location: index.php?paction=login");
                 exit();
@@ -43,7 +43,7 @@ class UserController
                 $_SESSION['user'] = $user;
                 header("Location: index.php?paction=homePage");
             } else {
-                $_SESSION['error'] = "Mật khẩu không chính xác";
+                $_SESSION['error'] = "パスワードが正しくありません";
                 $_SESSION['form_data'] = $_POST;
                 header("Location: index.php?paction=login");
             }
@@ -77,14 +77,14 @@ class UserController
             }
 
             if ($userModel->getUserByEmail($email)) {
-                $_SESSION['error'] = "Email đã tồn tại trong hệ thống";
+                $_SESSION['error'] = "システムに存在するメールアドレスです";
                 $_SESSION['form_data'] = $_POST;
                 header("Location: index.php?paction=register");
                 exit();
             }
 
             if ($userModel->getUserByUsername($usernames)) {
-                $_SESSION['error'] = "Username đã tồn tại trong hệ thống";
+                $_SESSION['error'] = "ユーザー名は既にシステムに存在します";
                 $_SESSION['form_data'] = $_POST;
                 header("Location: index.php?paction=register");
                 exit();
@@ -93,7 +93,7 @@ class UserController
             if ($userModel->insertUser($email, $usernames, $passwords)) {
                 header("Location: index.php?paction=login");
             } else {
-                $_SESSION['error'] = "Lỗi khi tạo tài khoản";
+                $_SESSION['error'] = "アカウント作成中にエラーが発生しました";
                 header("Location: index.php?paction=register");
             }
             exit();

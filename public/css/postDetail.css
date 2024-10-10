@@ -1,7 +1,7 @@
 /* CSS for postDetail.css */
 
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: Arial, sans-serif;
     background-size: cover;
     color: #333;
     margin: 0;
@@ -9,7 +9,7 @@ body {
   }
   
   .container {
-    max-width: 700px;
+    max-width: 700px !important;
     margin: 0 auto;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.9); /* Màu nền trong suốt */

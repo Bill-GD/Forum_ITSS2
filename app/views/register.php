@@ -18,7 +18,7 @@ $form_data = $_SESSION['form_data'] ?? [];
 </head>
 
 <body>
-    <div class="content-wrapper">
+    <div class="content-wrapper px-4 py-2">
         <div class="img-container">
             <img src="./img/logo.png" alt="Register Image">
         </div>

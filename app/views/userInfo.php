@@ -35,8 +35,15 @@ if (isset($_SESSION['successMessage'])) {
         <div class="navbar-right">
             <div class="dropdown">
 
-                <img src="uploads/<?= htmlspecialchars($user['profile_picture']) ?>" alt="Profile Picture" class="user-avatar dropdown-toggle" id="userOptionsButton" data-bs-toggle="dropdown" aria-expanded="false">
-
+                <!-- <img src="uploads/<?= htmlspecialchars($user['profile_picture']) ?>" alt="Profile Picture" class="user-avatar dropdown-toggle" id="userOptionsButton" data-bs-toggle="dropdown" aria-expanded="false"> -->
+                <?php if (!empty($user['profile_picture'])): ?>
+                  <img src="uploads/<?= htmlspecialchars($user['profile_picture']) ?>" alt="Profile Picture"
+                    style="width: 60px; height: 70px; border-radius: 50%;" class="user-avatar dropdown-toggle" id="userOptionsButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <?php else: ?>
+                  <div class="profile-placeholder user-avatar dropdown-toggle" id="userOptionsButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span><?php echo strtoupper(substr($user['usernames'], 0, 1)); ?></span>
+                  </div>
+                <?php endif; ?>
 
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userOptionsButton">
                     <li><a class="dropdown-item" href="#">マイプロフィール</a></li>
@@ -176,11 +183,11 @@ if (isset($_SESSION['successMessage'])) {
                             <input type="text" class="form-control" id="username" name="username" placeholder="ABC"
                                 value="<?php echo $_SESSION['user']['input_username'] ?? $_SESSION['user']['usernames']; ?>">
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="abc@example.com"
                                 value="<?php echo $_SESSION['user']['input_email'] ?? $_SESSION['user']['email']; ?>">
-                        </div>
+                        </div> -->
                         <div class="mb-3">
                             <label for="profilePic" class="form-label">ロフィール写真</label>
                             <input type="file" class="form-control" id="profilePic" name="profilePic">

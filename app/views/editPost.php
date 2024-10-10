@@ -17,7 +17,7 @@
     <form action="index.php?paction=updatePost&id=<?= $post['id'] ?>" method="POST" enctype="multipart/form-data">
         <div class="header-container">
             <a href="index.php?paction=homePage" class="back-arrow"><i class="fas fa-arrow-left"></i></a>
-            <h2>Edit Post</h2>
+            <h2>投稿を編集</h2>
         </div>
         <input type="hidden" name="id" value="<?= $post['id'] ?>">
         <textarea name="content" rows="5" cols="50"><?= htmlspecialchars($post['content']) ?></textarea><br>
@@ -28,7 +28,7 @@
         <?php endif; ?>
         <input type="file" name="image" accept="image/*"><br>
         <input type="hidden" name="returnTo" value="<?= isset($_GET['returnTo']) ? $_GET['returnTo'] : 'homePage' ?>">
-        <button type="submit">Update Post</button>
+        <button type="submit">投稿を更新</button>
     </form>
 </body>
 
