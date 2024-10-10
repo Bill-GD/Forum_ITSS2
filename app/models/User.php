@@ -21,13 +21,13 @@ class User
     public function validateLogin($email, $password)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return "Địa chỉ email không hợp lệ";
+            return "無効なメールアドレスです";
         } elseif (substr($email, -10) !== '@gmail.com') {
-            return "Email phải là Gmail";
+            return "メールはGmailでなければなりません";
         } elseif (strlen($password) < 8) {
-            return "Mật khẩu phải ít nhất 8 ký tự";
+            return "パスワードは8文字以上でなければなりません";
         } elseif (!preg_match("/[a-zA-Z]/", $password) || !preg_match("/[0-9]/", $password)) {
-            return "Mật khẩu phải bao gồm cả chữ cái và số";
+            return "パスワードには文字と数字の両方を含める必要があります";
         }
         return '';
     }
@@ -35,15 +35,15 @@ class User
     public function validateRegister($email, $username, $password, $confirm_password)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return "Địa chỉ email không hợp lệ";
+            return "無効なメールアドレスです";
         } elseif (substr($email, -10) !== '@gmail.com') {
-            return "Email phải là Gmail";
+            return "メールはGmailでなければなりません";
         } elseif (empty($username)) {
-            return "Username không được bỏ trống";
+            return "ユーザー名を入力してください";
         } elseif (strlen($password) < 8) {
-            return "Mật khẩu phải ít nhất 8 ký tự";
+            return "パスワードは8文字以上でなければなりません";
         } elseif ($password !== $confirm_password) {
-            return "Mật khẩu không khớp";
+            return "パスワードが一致しません";
         }
         return '';
     }
@@ -58,9 +58,10 @@ class User
 
     public function insertUser($email, $username, $password)
     {
-        $stmt = $this->conn->prepare("INSERT INTO user (email, usernames, passwords, date_created) VALUES (?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO user (email, usernames, passwords, date_created, profile_picture) VALUES (?, ?, ?, ?, ?)");
         $date_created = date('Y-m-d H:i:s');
-        $stmt->bind_param("ssss", $email, $username, $password, $date_created);
+        $profile_picture = '';
+        $stmt->bind_param("sssss", $email, $username, $password, $date_created, $profile_picture);
         return $stmt->execute();
     }
 

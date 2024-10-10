@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Search Posts by Tag</title>
-    <link rel="stylesheet" href="/Forum/public/css/search.css">
+    <link rel="stylesheet" href="/public/css/search.css">
 </head>
 <body>
     <div class="container">

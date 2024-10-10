@@ -19,9 +19,9 @@ if (isset($_SESSION['successMessage'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UserInfo Form</title>
-    <link rel="stylesheet" href="/Forum/public/css/homePage.css?v-1.0">
-    <link rel="stylesheet" href="/Forum/public/css/post.css">
-    <link rel="stylesheet" href="/Forum/public/css/userInfo.css">
+    <link rel="stylesheet" href="/public/css/homePage.css?v-1.0">
+    <link rel="stylesheet" href="/public/css/post.css">
+    <link rel="stylesheet" href="/public/css/userInfo.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
