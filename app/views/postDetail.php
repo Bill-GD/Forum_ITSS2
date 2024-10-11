@@ -78,6 +78,6 @@
 
     </div>
 </body>
-<script src="/Forum/public/js/comment.js"></script>
+<script src="/public/js/comment.js"></script>
 
 </html>

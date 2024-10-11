@@ -34,7 +34,7 @@ class Post
     // Lấy tất cả các bài post
     public function getAllPosts()
     {
-        $sql = "SELECT post.*, user.usernames FROM post 
+        $sql = "SELECT post.*, user.usernames, user.profile_picture FROM post 
                 JOIN user ON post.user_id = user.user_id 
                 ORDER BY date_created DESC";
 

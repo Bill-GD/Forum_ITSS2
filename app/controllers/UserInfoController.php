@@ -66,8 +66,14 @@ public function updatePost()
         $postModel = new Post();
         $content = $_POST['content'];
         $tag = $_POST['tag'];
+        
+        $image = '';
+        if (!empty($_FILES['image']['name'])) {
+          $image = time() . '_' . $_FILES['image']['name'];
+          move_uploaded_file($_FILES['image']['tmp_name'], '../public/uploads/' . $image);
+        }
 
-        $postModel->updatePost($_POST['id'], $content, $tag);
+        $postModel->updatePost($_POST['id'], $content, $image, $tag);
 
         header("Location: index.php?paction=homePage");
         exit();

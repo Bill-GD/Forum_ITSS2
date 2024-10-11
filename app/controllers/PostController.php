@@ -36,6 +36,7 @@ class PostController
     {
         $postModel = new Post();
         $posts = $postModel->getAllPosts();
+        $user = (new User())->getUserById($_SESSION['user']['user_id']);
         require_once '../app/views/homePage.php';
     }
 
