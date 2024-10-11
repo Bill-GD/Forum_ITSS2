@@ -22,6 +22,10 @@ class Post
             die('Lỗi khi chuẩn bị câu truy vấn: ' . $this->conn->error);
         }
 
+        if (empty($tag)) {
+            die('Tag không được để trống');
+        }
+
         $stmt->bind_param("isss", $user_id, $content, $image, $tag);
 
         if (!$stmt->execute()) {
@@ -34,7 +38,7 @@ class Post
     // Lấy tất cả các bài post
     public function getAllPosts()
     {
-        $sql = "SELECT post.*, user.usernames, user.profile_picture FROM post 
+        $sql = "SELECT post.*, user.user_id, user.usernames, user.profile_picture FROM post 
                 JOIN user ON post.user_id = user.user_id 
                 ORDER BY date_created DESC";
 
@@ -51,6 +55,25 @@ class Post
 
         return $posts;
     }
+
+    // Lấy tất cả các tag và số lượng bài viết của mỗi tag
+    public function getAllTags()
+    {
+        $sql = "SELECT tag, COUNT(*) as count FROM post GROUP BY tag";
+        $result = $this->conn->query($sql);
+
+        if ($result === false) {
+            die('Lỗi khi thực thi câu truy vấn: ' . $this->conn->error);
+        }
+
+        $tags = [];
+        while ($row = $result->fetch_assoc()) {
+            $tags[] = $row;
+        }
+
+        return $tags;
+    }
+    
 
     public function getPostById($id)
     {

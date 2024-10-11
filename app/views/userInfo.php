@@ -11,6 +11,7 @@ if (isset($_SESSION['successMessage'])) {
 }
 
 $pfp = empty($user['profile_picture']) ? '/public/img/register.jpg' : '/public/uploads/' . $user['profile_picture'];
+$curPfp = empty($curUser['profile_picture']) ? '/public/img/register.jpg' : '/public/uploads/' . $curUser['profile_picture'];
 ?>
 
 
@@ -37,7 +38,7 @@ $pfp = empty($user['profile_picture']) ? '/public/img/register.jpg' : '/public/u
         <div class="navbar-right">
             <div class="dropdown">
 
-                <img src="<?= $pfp ?>" class="user-avatar dropdown-toggle" id="userOptionsButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="<?= $curPfp ?>" class="user-avatar dropdown-toggle" id="userOptionsButton" data-bs-toggle="dropdown" aria-expanded="false">
                 <!-- <?php if (!empty($user['profile_picture'])): ?>
                   <img src="/public/uploads/<?= $user['profile_picture'] ?>" 
                     style="width: 60px; height: 70px; border-radius: 50%;" class="user-avatar dropdown-toggle" id="userOptionsButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,7 +49,7 @@ $pfp = empty($user['profile_picture']) ? '/public/img/register.jpg' : '/public/u
                 <?php endif; ?> -->
 
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userOptionsButton">
-                    <li><a class="dropdown-item" href="#">マイプロフィール</a></li>
+                    <li><a class="dropdown-item" href="?paction=userInfo&id=<?= $_SESSION['user']['user_id'] ?>">マイプロフィール</a></li>
                     <li><a class="dropdown-item" href="index.php?login">ログアウト</a></li>
                 </ul>
             </div>
@@ -69,7 +70,7 @@ $pfp = empty($user['profile_picture']) ? '/public/img/register.jpg' : '/public/u
         </aside>
 
         <section class="feed">
-            <form action="index.php?paction=updateProfile&id=<?php echo $_SESSION['user']['user_id']; ?>" method="POST" enctype="multipart/form-data">
+            <form action="index.php?paction=updateProfile&id=<?php echo $_SESSION['user']['user_id']; ?>" method="POST" enctype="multipart/form-data" class="mb-4">
                 <div class="profile-header">
                   <img src="<?= $pfp ?>" class="user-avatar" id="userOptionsButton">
                     <!-- <div class="profile-pic">
@@ -87,7 +88,9 @@ $pfp = empty($user['profile_picture']) ? '/public/img/register.jpg' : '/public/u
                         <h1 style="color: #000000;"><?= $user['usernames'] ?></h1>
                         <p><?= $postCount ?> 投稿</p>
                     </div>
+                    <?php if ($_SESSION['user']['user_id'] == $user['user_id']): ?>
                     <button class="edit-profile-btn" id="ep-Btn">プロフィールの編集</button>
+                    <?php endif; ?>
                 </div>
             </form>
 
@@ -96,15 +99,17 @@ $pfp = empty($user['profile_picture']) ? '/public/img/register.jpg' : '/public/u
                 <?php foreach ($posts as $post): ?>
                     <div class="post">
                         <div class="post-header">
-
+                          
+                          <img src="<?= $pfp ?>" class="user-avatar mx-3" id="userOptionsButton" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                            
-                            <?php if (!empty($user['profile_picture'])): ?>
+                            <!-- <?php if (!empty($user['profile_picture'])): ?>
                                 <img src="uploads/<?= htmlspecialchars($user['profile_picture']) ?>" alt="Profile Picture" class="profile-pic">
                             <?php else: ?>
                                 <div class="profile-placeholder">
                                     <span><?php echo strtoupper(substr($user['usernames'], 0, 1)); ?></span>
                                 </div>
-                            <?php endif; ?>
+                            <?php endif; ?> -->
 
                             <div class="post-info">
                                 <h3><?= $post['usernames'] ?></h3>
@@ -156,11 +161,14 @@ $pfp = empty($user['profile_picture']) ? '/public/img/register.jpg' : '/public/u
                 <p>ここに広告コンテンツがあります...</p>
             </div>
             <h4>トレンド</h4>
-            <div class="contact-list">
-                <p>#ケーキ</p>
-                <p>#辛い</p>
-                <p>#バカ</p>
+        <div class="contact-list">
+          <?php foreach ($tags as $tag): ?>
+            <div class="py-2">
+              <span>#<?= $tag['tag'] ?></span><br>
+              <span class="fs-6"><?= $tag['count'] ?> 投稿</span>
             </div>
+          <?php endforeach; ?>
+        </div>
         </aside>
     </div>
 

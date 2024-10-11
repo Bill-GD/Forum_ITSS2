@@ -4,12 +4,12 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Kiểm tra và hiển thị thông báo thành công
-if (isset($_SESSION['successMessage'])) {
-  echo '<script>
-            alert("' . htmlspecialchars($_SESSION['successMessage']) . '");
-          </script>';
-  unset($_SESSION['successMessage']);
-}
+// if (isset($_SESSION['successMessage'])) {
+//   echo '<script>
+//             alert("' . htmlspecialchars($_SESSION['successMessage']) . '");
+//           </script>';
+//   unset($_SESSION['successMessage']);
+// }
 
 
 // Kiểm tra và hiển thị thông báo lỗi
@@ -122,7 +122,7 @@ $pfp = empty($user['profile_picture']) ? '/public/img/register.jpg' : '/public/u
                 <!-- <img src="../public/img/register.jpg" alt="Profile Picture" class="profile-pic"> -->
 
                 <div class="post-info">
-                  <h3><?= $post['usernames'] ?></h3>
+                  <a href="?paction=userInfo&id=<?= $post['user_id'] ?>" class="fs-4 text-decoration-none"><?= $post['usernames'] ?></a>
                   <p><?= $post['date_created'] ?></p>
                 </div>
 
@@ -185,9 +185,12 @@ $pfp = empty($user['profile_picture']) ? '/public/img/register.jpg' : '/public/u
         </div>
         <h4>トレンド</h4>
         <div class="contact-list">
-          <p>#ケーキ</p>
-          <p>#辛い</p>
-          <p>#バカ</p>
+          <?php foreach ($tags as $tag): ?>
+            <div class="py-2">
+              <span>#<?= $tag['tag'] ?></span><br>
+              <span class="fs-6"><?= $tag['count'] ?> 投稿</span>
+            </div>
+          <?php endforeach; ?>
         </div>
       </aside>
     </div>

@@ -59,8 +59,8 @@
                         <form id="edit-form-<?= $comment['id'] ?>" class="edit-form" style="display:none;" method="POST" onsubmit="return saveComment(<?= $comment['id'] ?>, <?= $post['id'] ?>)">
                             <textarea id="edit-content-<?= $comment['id'] ?>"><?= htmlspecialchars($comment['content']) ?></textarea>
                             <div class="button-group">
-                                <button type="submit">Update</button>
-                                <button type="button" onclick="cancelEdit(<?= $comment['id'] ?>)">Cancel</button>
+                                <button type="submit">更新</button>
+                                <button type="button" onclick="cancelEdit(<?= $comment['id'] ?>)">キャンセル</button>
                             </div>
                         </form>
                     </div>

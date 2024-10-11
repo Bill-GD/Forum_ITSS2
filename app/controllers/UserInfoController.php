@@ -18,6 +18,7 @@ class UserInfoController
 
         // Lấy thông tin người dùng
         $user = $userModel->getUserById($userId);
+        $curUser = $userModel->getUserById($_SESSION['user']['user_id']);
         
         if ($user) {
             // Lấy số lượng bài viết của người dùng
@@ -25,6 +26,8 @@ class UserInfoController
             
             // Lấy các bài viết của người dùng
             $posts = $userInfoModel->getPostsByUserId($user['user_id']); // Cũng dùng UserInfo
+
+            $tags = (new Post())->getAllTags(); // Lấy tất cả các tag
             
             // Gọi view để hiển thị thông tin người dùng và bài viết
             require_once '../app/views/userInfo.php';
@@ -66,7 +69,7 @@ public function updatePost()
         $postModel = new Post();
         $content = $_POST['content'];
         $tag = $_POST['tag'];
-        
+
         $image = '';
         if (!empty($_FILES['image']['name'])) {
           $image = time() . '_' . $_FILES['image']['name'];
